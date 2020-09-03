@@ -4,6 +4,10 @@
 # We get SSH port by checking ssh daemon config.
 PORT=$(cat /etc/ssh/sshd_config | grep -i -m 1 port | awk '{print $NF}')
 
+# Clean existing connections to VPN.
+killall -r .*nordvpn.* -15 || \
+
+# Connect.
 nordvpn connect && \
 # Tell iptables to not drop the packets moving in this SSH port.
 iptables -I INPUT -p tcp --dport $PORT -i enp0s31f6 -j ACCEPT && \
