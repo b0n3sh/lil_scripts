@@ -2,42 +2,43 @@
 // Just paste code in console and gg.
 
 async function followers() {
-    followers_number = parseInt(document.querySelectorAll('main > div > header > section > ul > li > a > span')[0].title);
+    followers_number = parseInt(document.querySelectorAll('main > div > header > section > ul > li > a > div > span')[0].title);
     console.log("Working for " + followers_number + " followers...");
     var followers_tab = document.querySelectorAll('main > div > header > section > ul > li > a')[0];
     followers_tab.click();
     while(document.querySelectorAll('[aria-label=Followers]').length == 0) {
         await new Promise(r => setTimeout(r, 2500));
     }
-    x = document.querySelectorAll('[aria-label=Followers] > div > div')[1];
+    x = document.querySelectorAll('[aria-label=Followers] > div > div > div');
     y = document.querySelectorAll('[aria-label=Followers] li');
-    while(followers_number != y.length) {
+    while(followers_number >= y.length+2) {
         await new Promise(r => setTimeout(r, 1500));
-        x.scrollBy(0,1000);
-        //y = document.querySelectorAll('[aria-label=Followers] li >');
+        x[1].scrollBy(0,1000);
         y = document.querySelectorAll('[aria-label=Followers] li > div > div > div > div > span > a')
         console.log("Processing " + y.length + " users...");
     }
     for (i=0; i < y.length; i++) {
         array_followers.push(y[i].title);
     }
-    document.querySelector('[aria-label=Followers] > div > div > div > div > button').click()
+    document.querySelector('[aria-label=Followers] button').click();
 }
 
 async function following(){
-     while(!document.querySelectorAll('main > div > header > section > ul > li > a > span')[1]) {
+	console.log("here we go agian");
+     while(!document.querySelectorAll('main > div > header > section > ul > li > a > div > span')[1]) {
         await new Promise(x => setTimeout(x, 500));
     }
 
-    following_number = parseInt(document.querySelectorAll('main > div > header > section > ul > li > a > span')[1].textContent);
+	console.log("finished");
+    following_number = parseInt(document.querySelectorAll('main > div > header > section > ul > li > a > div > span')[1].textContent);
     console.log("Working for " + following_number + " followings...");
     document.querySelectorAll('main>div>header li>a')[1].click();
     while(document.querySelectorAll('[aria-label=Following]').length == 0) {
         await new Promise(r => setTimeout(r, 1500));
     }
-    x = document.querySelectorAll('[aria-label=Following] > div > div')[2] 
+    x = document.querySelectorAll('[aria-label=Following] > div > div > div')[2];
     y = document.querySelectorAll('[aria-label=Following] li > div > div > div > div > a') 
-    while(following_number != y.length) {
+    while(following_number >= y.length+2) {
         await new Promise(r => setTimeout(r, 1500));
         x.scrollBy(0,1000);
         y = document.querySelectorAll('[aria-label=Following] li > div > div > div > div > span > a') 
